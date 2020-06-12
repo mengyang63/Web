@@ -1,2 +1,2 @@
-# coursera-web
+# web
 web development
