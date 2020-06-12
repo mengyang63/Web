@@ -1,19 +1,44 @@
 var colors = generateColors(6);
-
-function pickcolor() {
-    var random =  Math.round(Math.random() * colors.length);
-    return colors[random];
-}
-
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickcolor();
 var colorDisplay = document.getElementById("colorDisplay");
 var message = document.getElementById("message");
 colorDisplay.textContent = pickedColor;
-
 var reset = document.querySelector("#reset");
+
+var easy = document.getElementById("easy");
+var hard = document.getElementById("hard");
+var NumofColor = 3;
+
+easy.addEventListener("click", function () {
+    easy.classList.add("selected");
+    hard.classList.remove("selected");
+    NumofColor = 3;
+    colors = generateColors(NumofColor);
+    pickedColor = pickcolor();
+    for (var i = 0; i < squares.length; i++) {
+        if (colors[i]) {
+            squares[i].style.backgroundColor = colors[i];
+        } else {
+            squares[i].style.display = "none";
+        }
+    }
+})
+
+hard.addEventListener("click", function () {
+    hard.classList.add("selected");
+    easy.classList.remove("selected");
+    NumofColor = 6;
+    colors = generateColors(NumofColor);
+    pickedColor = pickcolor();
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = colors[i];
+        squares[i].style.display = "block";
+    }
+})
+
 reset.addEventListener("click", function () {
-    colors = generateColors(6);
+    colors = generateColors(NumofColor);
     pickedColor = pickcolor();
     colorDisplay.textContent = pickedColor;
     for (var i = 0; i < colors.length; i++) {
@@ -45,13 +70,14 @@ for (var i = 0; i < colors.length; i++) {
     })
 }
 
+//change all the squares to the same color
 function changeColor(color) {
     for (let i = 0;  i < squares.length ; i++) {
-        squares[i].style.backgroundColor = color;
-        
+        squares[i].style.backgroundColor = color;        
     } 
 }
 
+// generate colors based on the int num
 function generateColors(num) {
     var res = [];
     for (var i = 0; i < num; i++) {
@@ -60,9 +86,16 @@ function generateColors(num) {
     return res;
 }
 
+//generate a random color
 function randomColor() {
     var r = Math.round(Math.random() * 255);
     var g = Math.round(Math.random() * 255);
     var b = Math.round(Math.random() * 255);
     return "rgb(" + r + ", " +  g+ ", " + b + ")";
+}
+
+// Pick a color for the result
+function pickcolor() {
+    var random =  Math.round(Math.random() * colors.length);
+    return colors[random];
 }
