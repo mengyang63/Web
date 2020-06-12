@@ -46,6 +46,7 @@ reset.addEventListener("click", function () {
     }
     h1.style.backgroundColor = "steelblue";
     reset.textContent = "New Colors";
+    message.textContent = "";
 })
 
 var h1 = document.querySelector("h1");
